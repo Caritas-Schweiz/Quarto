@@ -22,13 +22,7 @@ viewof islands = Inputs.checkbox(
     label: "Islands:"
   }
 )
-```
 
-::: {.panel-tabset}
-
-## Plot
-
-```{ojs}
 Plot.rectY(filtered, 
   Plot.binX(
     {y: "count"}, 
@@ -52,15 +46,9 @@ Plot.rectY(filtered,
 
 ```{ojs}
 Inputs.table(filtered)
-```
 
-:::
-
-```{ojs}
 data = FileAttachment("penguins.csv").csv({ typed: true })
-```
 
-```{ojs}
 filtered = data.filter(function(penguin) {
   return bill_length_min < penguin.bill_length_mm &&
          islands.includes(penguin.island);

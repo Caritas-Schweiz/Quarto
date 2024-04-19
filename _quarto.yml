@@ -1,0 +1,20 @@
+project:
+  type: website
+
+website:
+  title: "Caritas Schweiz Reporting"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - market.qmd
+      - about.qmd
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+
+
+

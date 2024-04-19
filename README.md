@@ -17,5 +17,6 @@ Open the `hello.qmd` file and run the cell.
 
 ## Usage
 
-Open the `market.qmd` and create a Quarto preview.
+Add `Falldaten_CaritasbB.csv` and `Caritas Markt.csv` to the folder.
 
+Open the `market.qmd` and create a Quarto preview.
