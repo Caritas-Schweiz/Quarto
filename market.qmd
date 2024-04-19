@@ -31,3 +31,38 @@ plt.grid(axis='y', linestyle='--', alpha=0.7)
 plt.show()
 ```
 
+
+
+```{python}
+import pandas as pd
+import matplotlib.pyplot as plt
+import numpy as np 
+# Read the CSV file
+market = pd.read_csv("Caritas Markt.csv", sep=";")
+
+market['Monat'] = pd.to_datetime(market['Monat'], errors='coerce')
+
+# Drop rows where 'Monat' could not be converted to datetime (if any)
+market.dropna(subset=['Monat'], inplace=True)
+
+# Filter the data for the year 2023
+market_2023 = market[market['Monat'].dt.year == 2023]
+
+# Convert 'Umsatz' to numeric, coercing errors
+market_2023['Umsatz'] = pd.to_numeric(market_2023['Umsatz'], errors='coerce')
+
+# Group by Month and calculate the sum of 'Umsatz'
+sales_per_month = market_2023.groupby(market_2023['Monat'].dt.month)['Umsatz'].sum()
+
+# Plot the data
+plt.figure(figsize=(12, 6))
+colors = plt.cm.viridis(np.linspace(0, 1, sales_per_month.size))
+sales_per_month.plot(kind='bar', color=colors)
+plt.title('Total Monthly Umsatz for 2023')
+plt.xlabel('Month')
+plt.ylabel('Umsatz (Revenue)')
+plt.xticks(range(len(sales_per_month)), [f'{m:02d}.2023' for m in sales_per_month.index], rotation=45)
+plt.grid(axis='y', linestyle='--', alpha=0.7)
+plt.tight_layout()
+plt.show()
+```
