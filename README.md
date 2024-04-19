@@ -11,6 +11,11 @@ In VSCode install these extensions:
 
 Then install python tools:
 
-`python3 -m pip install jupyter matplotlib plotly`
+`python3 -m pip install jupyter matplotlib plotly pandas`
 
 Open the `hello.qmd` file and run the cell.
+
+## Usage
+
+Open the `market.qmd` and create a Quarto preview.
+
