@@ -28,7 +28,7 @@ case_data['Registrierung'] = case_data['Datum_Registrierung_Client'].dt.year
 # Filter data for 'Finanzbedarf' and for years 2022 and 2023
 finanz_subcat = case_data[
     (case_data['Hauptart'] == '02 Finanzbedarf') &
-    (case_data['Leistung_Year'].isin([2022, 2023]))
+    (case_data['Leistung_Year'].isin([2021, 2022, 2023]))
 ]
 
 # Ensure 'Materielle_G' is included
@@ -83,7 +83,7 @@ Finanzbedarf pro Monat.
 case_data['Leistung_Month'] = case_data['Datum_Leistung'].dt.month
 
 # Filter data for 'Finanzbedarf' and relevant years
-finanzbedarf_data = case_data[(case_data['Hauptart'] == '02 Finanzbedarf') & (case_data['Leistung_Year'].isin([2022, 2023]))]
+finanzbedarf_data = case_data[(case_data['Hauptart'] == '02 Finanzbedarf') & (case_data['Leistung_Year'].isin([2021, 2022, 2023]))]
 
 # Aggregate data by year and month
 monthly_counts = finanzbedarf_data.groupby(['Leistung_Year', 'Leistung_Month']).size().reset_index(name='Counts')

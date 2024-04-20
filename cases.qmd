@@ -38,7 +38,7 @@ case_data['Leistung_Year'] = case_data['Datum_Leistung'].dt.year
 case_data['Registrierung'] = case_data['Datum_Registrierung_Client'].dt.year
 
 # Aggregate the counts of each category by year
-hauptart_category_counts = case_data[case_data['Leistung_Year'].isin([2022, 2023, 2024])] \
+hauptart_category_counts = case_data[case_data['Leistung_Year'].isin([2021, 2022, 2023, 2024])] \
                     .groupby(['Leistung_Year', 'Hauptart']).size() \
                     .reset_index(name='Counts')
 
