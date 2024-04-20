@@ -8,17 +8,20 @@ website:
     left:
       - href: index.qmd
         text: Home
-      - market.qmd
-      - map.qmd
-      - about.qmd
-      - text: "Kunden"
-        menu:
-          - href: clients.qmd
-            text: Kundenübersicht Allgemein
-          - href: clients_2022.qmd
-            text: Kunden 2022
-          - href: clients_2023.qmd
-            text: Kunden 2023
+      - href: market.qmd
+        text: Markt
+      - href: map.qmd
+        text: Karte
+      - href: clients.qmd
+        text: "Kunden"
+  sidebar:
+    - title: "Kunden"
+      style: "docked"
+      background: light
+      contents:
+        - clients.qmd
+        - clients-2022.qmd
+        - clients-2023.qmd
 
 format:
   html:

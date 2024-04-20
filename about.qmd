@@ -1,5 +1,0 @@
----
-title: "About"
----
-
-Write here about the project.

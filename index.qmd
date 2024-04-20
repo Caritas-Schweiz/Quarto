@@ -2,6 +2,4 @@
 title: "website"
 ---
 
-This is a Quarto website.
-
-To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
+Das "Caritas Schweiz Reporting" ist eine statische Website mit Auswertungen und Visualisierung der Caritas Markt- und Falldaten.

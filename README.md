@@ -11,7 +11,7 @@ In VSCode install these extensions:
 
 Then install python tools:
 
-`python3 -m pip install jupyter matplotlib plotly pandas`
+`python3 -m pip install jupyter matplotlib plotly pandas seaborn`
 
 Open the `hello.qmd` file and run the cell.
 
@@ -20,3 +20,7 @@ Open the `hello.qmd` file and run the cell.
 Add `Falldaten_CaritasbB.csv` and `Caritas Markt.csv` to the folder.
 
 Open the `market.qmd` and create a Quarto preview.
+
+### Output
+
+To generate the `.html` document (the static website) run `> Quarto: Render Document` and select HTML.
