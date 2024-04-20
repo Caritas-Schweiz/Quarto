@@ -1,5 +1,7 @@
 # Quarto
 
+This projects uses <https://quarto.org/> and <https://code.visualstudio.com/> to create a data visualisation website for Caritas Schweiz.
+
 ## Development
 
 Install Quarto according to: <https://quarto.org/docs/get-started/>
@@ -19,9 +21,9 @@ Open the `hello.qmd` file and run the cell.
 
 Add `Falldaten_CaritasbB.csv` and `Caritas Markt.csv` to the folder.
 
-Open the `market.qmd` and create a Quarto preview.
+Open the `index.qmd` and run the Quarto preview `> Quarto: Preview`.
 
-### Output
+### Render
 
 To generate the `.html` document (the static website) run `> Quarto: Render Document` and select HTML.
 
@@ -42,5 +44,5 @@ Render the documents.
 Deploy with [vercel](https://vercel.com/).
 
 ```bash
-vercel
+vercel --prod
 ```

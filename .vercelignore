@@ -1,7 +1,5 @@
 *.csv
-*.html
 *_files
 .quarto
-_site
 quarto-*
 .vercel
