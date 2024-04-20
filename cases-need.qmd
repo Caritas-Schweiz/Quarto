@@ -1,0 +1,17 @@
+---
+title: "Finanzbedarf"
+execute:
+  echo: false
+jupyter: python3
+---
+
+Unterkategorien Finanzbedarf.
+```{python}
+
+```
+
+
+Finanzbedarf pro Monat.
+```{python}
+
+```

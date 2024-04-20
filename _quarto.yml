@@ -24,6 +24,12 @@ website:
         - clients.qmd
         - clients-2022.qmd
         - clients-2023.qmd
+    - title: "Falldaten"
+      style: "docked"
+      background: light
+      contents:
+        - cases.qmd
+        - cases-need.qmd
 
 format:
   html:
