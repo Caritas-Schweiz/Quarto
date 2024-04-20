@@ -13,7 +13,9 @@ website:
       - href: map.qmd
         text: Karte
       - href: clients.qmd
-        text: "Kunden"
+        text: Kunden
+      - href: cases.qmd
+        text: Falldaten
   sidebar:
     - title: "Kunden"
       style: "docked"

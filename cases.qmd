@@ -1,0 +1,40 @@
+---
+title: "Falldaten"
+format:
+  html:
+    code-fold: true
+jupyter: python3
+---
+
+
+```{python}
+import numpy as np
+import pandas as pd
+import plotly.express as px
+
+case_data = pd.read_csv('Falldaten_CaritasbB.csv', delimiter=';')
+
+case_data['Datum_Leistung'] = pd.to_datetime(case_data['Datum_Leistung'], errors='coerce')
+case_data['Datum_Registrierung_Client'] = pd.to_datetime(case_data['Datum_Registrierung_Client'], errors='coerce')
+
+case_data['Leistung_Year'] = case_data['Datum_Leistung'].dt.year
+case_data['Registrierung'] = case_data['Datum_Registrierung_Client'].dt.year
+
+# Aggregate the counts of each category by year
+category_counts = case_data[case_data['Leistung_Year'].isin([2022, 2023, 2024])] \
+                    .groupby(['Leistung_Year', 'Hauptart']).size() \
+                    .reset_index(name='Counts')
+
+# Create the bar graph
+fig = px.bar(category_counts,
+             x='Hauptart',
+             y='Counts',
+             color='Leistung_Year',
+             title='Category Distribution by Year',
+             labels={'Counts': 'Number of Occurrences', 'Hauptart': 'Category'},
+             barmode='group')
+
+# Show the plot
+fig.show()
+
+```
