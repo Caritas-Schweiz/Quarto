@@ -3,3 +3,5 @@
 *_files
 /.quarto/
 _site
+quarto-*
+.vercel

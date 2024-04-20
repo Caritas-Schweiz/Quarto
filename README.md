@@ -11,7 +11,7 @@ In VSCode install these extensions:
 
 Then install python tools:
 
-`python3 -m pip install jupyter matplotlib plotly pandas seaborn`
+`pip install -r requirements.txt`
 
 Open the `hello.qmd` file and run the cell.
 
@@ -24,3 +24,23 @@ Open the `market.qmd` and create a Quarto preview.
 ### Output
 
 To generate the `.html` document (the static website) run `> Quarto: Render Document` and select HTML.
+
+### Deployment
+
+Download the Quarto binary.
+
+```bash
+./install.sh
+```
+
+Render the documents.
+
+```bash
+./build.sh
+```
+
+Deploy with [vercel](https://vercel.com/).
+
+```bash
+vercel
+```
