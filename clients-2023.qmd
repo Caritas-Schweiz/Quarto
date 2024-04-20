@@ -5,6 +5,8 @@ execute:
 jupyter: python3
 ---
 
+Kundenanzahl pro Region für 2023.
+
 ```{python}
 import pandas as pd
 import seaborn as sns
@@ -36,7 +38,11 @@ plt.ylabel('Kundenanzahl')
 plt.xticks(rotation=45)
 plt.grid(axis='y', linestyle='--', alpha=0.7)
 plt.show()
+```
 
+Heatmap der Kundenanzahl pro Region und Monat für 2023.
+
+```{python}
 # Heatmap erstellen
 
 # Erstellung einer Pivot-Tabelle
@@ -48,7 +54,11 @@ plt.title('Heatmap der Kundenanzahl pro Region und Monat für 2023')
 plt.xlabel('Monat')
 plt.ylabel('Region')
 plt.show()
+```
 
+Verteilung der Kunden pro Region für 2023.
+
+```{python}
 # Kreisdiagramm erstellen
 
 plt.figure(figsize=(10, 7))
@@ -56,8 +66,4 @@ plt.pie(kunden_pro_region, labels=kunden_pro_region.index, autopct='%1.1f%%', st
 plt.title('Verteilung der Kunden pro Region für 2023')
 plt.axis('equal')  # Dies stellt sicher, dass das Pie Chart kreisförmig bleibt
 plt.show()
-
-
-
-
 ```

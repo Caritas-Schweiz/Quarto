@@ -10,6 +10,7 @@ Verteilung der Beratungstypen.
 ```{python}
 import pandas as pd
 import plotly.express as px
+import plotly.graph_objects as go
 
 data = pd.read_csv("Falldaten_CaritasbB.csv", sep=';')  # Use semicolon or another character if you suspect a different delimiter
 
