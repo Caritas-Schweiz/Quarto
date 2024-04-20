@@ -1,9 +1,11 @@
 ---
-title: "Market"
+title: "Markt"
 execute:
   echo: false
 jupyter: python3
 ---
+
+Umsatz nach Region.
 
 ```{python}
 import pandas as pd
@@ -28,7 +30,7 @@ plt.grid(axis='y', linestyle='--', alpha=0.7)
 plt.show()
 ```
 
-
+Monatlicher Umsatz Jahr 2023.
 
 ```{python}
 import pandas as pd

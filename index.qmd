@@ -1,5 +1,7 @@
 ---
-title: "website"
+title: "Caritas Schweiz Reporting"
 ---
 
 Das "Caritas Schweiz Reporting" ist eine statische Website mit Auswertungen und Visualisierung der Caritas Markt- und Falldaten.
+
+Den Source-Code dieser Website und Auswertungen finden Sie auf GitHub: <https://github.com/Caritas-Schweiz/Quarto>

@@ -23,9 +23,7 @@ case_data['Registrierung'] = case_data['Datum_Registrierung_Client'].dt.year
 ```
 
 ```{python}
-#Finanzbedarf subcategories
-
-case_data.columns
+# Finanzbedarf subcategories
 
 # Filter data for 'Finanzbedarf' and for years 2022 and 2023
 finanz_subcat = case_data[
@@ -34,12 +32,10 @@ finanz_subcat = case_data[
 ]
 
 # Ensure 'Materielle_G' is included
-print(finanz_subcat[['Leistung_Year', 'Hauptart', 'Materielle_G']].head())
-
+# print(finanz_subcat[['Leistung_Year', 'Hauptart', 'Materielle_G']].head())
 
 # Group by 'Year' and 'Materielle_G', then count the occurrences
 finanz_subcat_yearly_counts = finanz_subcat.groupby(['Leistung_Year', 'Materielle_G']).size().reset_index(name='Counts')
-
 
 #Create a Bar Graph
 graph_finanz_subcat = go.Figure()
@@ -82,8 +78,6 @@ graph_finanz_subcat.show()
 Finanzbedarf pro Monat.
 ```{python}
 #Graph for Finanzbedarf by Month
-
-case_data.info()
 
 # Extract year and month from Datum_Leistung
 case_data['Leistung_Month'] = case_data['Datum_Leistung'].dt.month
