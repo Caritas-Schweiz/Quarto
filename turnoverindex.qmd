@@ -1,0 +1,97 @@
+---
+title: "Index mit Umsatz verglichen"
+execute:
+  echo: false
+jupyter: python3
+---
+
+
+```{python}
+
+
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Daten für die erste Tabelle
+data1 = {
+    "Date": ["1/1/22", "2/1/22", "3/1/22", "4/1/22", "5/1/22", "6/1/22", "7/1/22", "8/1/22", 
+             "9/1/22", "10/1/22", "11/1/22", "12/1/22", "1/1/23", "2/1/23", "3/1/23", "4/1/23", 
+             "5/1/23", "6/1/23", "7/1/23", "8/1/23", "9/1/23", "10/1/23", "11/1/23", "12/1/23", 
+             "1/1/24", "2/1/24"],
+    "Index": [101.7, 102.4, 103, 103.3, 104, 104.5, 104.5, 104.8, 104.6, 104.6, 104.6, 104.4, 
+              105, 105.8, 106, 106, 106.3, 106.3, 106.2, 106.4, 106.3, 106.4, 106.2, 106.2, 
+              106.4, 107.1],
+    "Market": [41261422, 68318945, 56010561, 63927902, 103512528, 
+               83508074, 86315795, 89102519, 62442255, 52684554, 
+               82644115, 84630157, 97619522, 99654641, 78682919, 
+               81208790, 82644146, 70298739, 62332686, 67578955, 
+               64458100, 90857058, 69444952, 92295136, 92531461, 
+               85695427]
+}
+
+# Daten für die zweite Tabelle
+data2 = {
+    "Date": ["1/1/22", "2/1/22", "3/1/22", "4/1/22", "5/1/22", "6/1/22", "7/1/22", "8/1/22", 
+             "9/1/22", "10/1/22", "11/1/22", "12/1/22", "1/1/23", "2/1/23", "3/1/23", "4/1/23", 
+             "5/1/23", "6/1/23", "7/1/23", "8/1/23", "9/1/23", "10/1/23", "11/1/23", "12/1/23", 
+             "1/1/24", "2/1/24"],
+    "Früchte und Gemüse": [95.4589, 95.3399, 95.3709, 97.1348, 99.7368, 104.6054, 105.3628, 105.8999, 105.6958,
+                           105.6591, 101.7374, 99.3361, 98.8876, 100.0807, 102.742, 100.8235, 104.6616, 108.7777,
+                           111.4295, 110.3192, 109.5094, 107.4797, 105.1812, 103.4663, 102.393, 107.1],
+    "Umsatz": ["165,448.07 CHF", "162,828.69 CHF", "229,754.72 CHF", "240,584.40 CHF", "261,629.67 CHF", 
+               "302,665.71 CHF", "247,564.43 CHF", "266,743.28 CHF", "274,407.66 CHF", "264,431.45 CHF", 
+               "287,035.56 CHF", "273,599.19 CHF", "265,639.14 CHF", "255,265.34 CHF", "307,527.92 CHF", 
+               "242,380.04 CHF", "287,970.34 CHF", "308,411.29 CHF", "262,292.45 CHF", "295,702.58 CHF", 
+               "258,303.19 CHF", "285,754.76 CHF", "277,697.78 CHF", "253,126.49 CHF", "248,024.78 CHF", 
+               "285,695.427 CHF"]
+}
+
+
+
+# DataFrames erstellen und Daten formatieren
+df1 = pd.DataFrame(data1)
+df2 = pd.DataFrame(data2)
+df1['Date'] = pd.to_datetime(df1['Date'], format='%m/%d/%y')
+df2['Date'] = pd.to_datetime(df2['Date'], format='%m/%d/%y')
+df2['Umsatz'] = df2['Umsatz'].replace('[\$, CHF]', '', regex=True).astype(float)
+
+# Diagramm für die erste Tabelle, mit angepassten y-Achsen Grenzen
+fig, ax1 = plt.subplots(figsize=(8, 5))
+color = 'tab:red'
+ax1.set_xlabel('Datum (Monat)')
+ax1.set_ylabel('Index', color=color)
+ax1.plot(df1['Date'], df1['Index'], color=color)
+ax1.tick_params(axis='y', labelcolor=color)
+ax1.set_ylim(bottom=min(df1['Index']) * 0.95)  # Beginnt bei 95% des minimalen Indexwertes
+
+ax2 = ax1.twinx()
+color = 'tab:blue'
+ax2.set_ylabel('Umsatz (Millionen)', color=color)
+ax2.plot(df1['Date'], df1['Market'] / 1e6, color=color)
+ax2.tick_params(axis='y', labelcolor=color)
+ax2.set_ylim(bottom=min(df1['Market']) / 1e6 * 0.95)  # Beginnt bei 95% des minimalen Marktwertes
+plt.title('Index- und Marktdaten im Zeitverlauf')
+plt.grid(True)
+
+# Diagramm für die zweite Tabelle, mit angepassten y-Achsen Grenzen
+fig, ax3 = plt.subplots(figsize=(8, 5))
+ax3.plot(df2['Date'], df2['Früchte und Gemüse'], color='tab:green', label='Früchte und Gemüse')
+ax3.set_xlabel('Datum (Monat)')
+ax3.set_ylabel('Index', color='tab:green')
+ax3.tick_params(axis='y', labelcolor='tab:green')
+ax3.set_ylim(bottom=min(df2['Früchte und Gemüse']) * 0.95)  # Beginnt bei 95% des minimalen Wertes
+
+ax4 = ax3.twinx()
+ax4.plot(df2['Date'], df2['Umsatz'], color='tab:orange', label='Umsatz')
+ax4.set_ylabel('Umsatz (CHF)', color='tab:orange')
+ax4.tick_params(axis='y', labelcolor='tab:orange')
+ax4.set_ylim(bottom=min(df2['Umsatz']) * 0.95)  # Beginnt bei 95% des minimalen Umsatzwertes
+plt.title('Index- und Früchte/Gemüse Umsatzdaten im Zeitverlauf')
+plt.grid(True)
+
+plt.show()
+
+
+
+
+```
