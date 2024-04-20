@@ -1,8 +1,7 @@
 ---
 title: "Kundenübersicht"
-format:
-  html:
-    code-fold: true
+execute:
+  echo: false
 jupyter: python3
 ---
 

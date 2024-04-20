@@ -1,8 +1,7 @@
 ---
 title: "Kunden 2023"
-format:
-  html:
-    code-fold: true
+execute:
+  echo: false
 jupyter: python3
 ---
 
