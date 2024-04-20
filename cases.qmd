@@ -37,20 +37,42 @@ case_data['Leistung_Year'] = case_data['Datum_Leistung'].dt.year
 case_data['Registrierung'] = case_data['Datum_Registrierung_Client'].dt.year
 
 # Aggregate the counts of each category by year
-category_counts = case_data[case_data['Leistung_Year'].isin([2022, 2023, 2024])] \
+hauptart_category_counts = case_data[case_data['Leistung_Year'].isin([2022, 2023, 2024])] \
                     .groupby(['Leistung_Year', 'Hauptart']).size() \
                     .reset_index(name='Counts')
 
-# Create the bar graph
-fig = px.bar(category_counts,
-             x='Hauptart',
-             y='Counts',
-             color='Leistung_Year',
-             title='Category Distribution by Year',
-             labels={'Counts': 'Number of Occurrences', 'Hauptart': 'Category'},
-             barmode='group')
+# Initialize a figure
+hauptart_fig = go.Figure()
+
+# Retrieve unique years and categories
+hauptart_years = sorted(hauptart_category_counts['Leistung_Year'].unique())
+hauptart_categories = hauptart_category_counts['Hauptart'].unique()
+
+# Create a bar for each year
+for year in hauptart_years:
+    filtered_data = hauptart_category_counts[hauptart_category_counts['Leistung_Year'] == year]
+    hauptart_fig.add_trace(go.Bar(
+        x=filtered_data['Hauptart'],
+        y=filtered_data['Counts'],
+        name=str(year)  # Name the bars as per the year
+    ))
+
+# Update the layout for grouped bars
+hauptart_fig.update_layout(
+    barmode='group',  # This makes bars appear next to each other instead of stacking
+    title='Category Distribution by Year',
+    xaxis_title='Category',
+    yaxis_title='Count',
+    legend_title='Year',
+    plot_bgcolor='white',
+    legend=dict(
+        yanchor="top",
+        y=0.99,
+        xanchor="right",
+        x=0.99
+    )
+)
 
 # Show the plot
-fig.show()
-
+hauptart_fig.show()
 ```

@@ -7,11 +7,124 @@ jupyter: python3
 
 Unterkategorien Finanzbedarf.
 ```{python}
+import plotly.express as px
+import numpy as np
+import pandas as pd
+import plotly.graph_objects as go
 
+case_data = pd.read_csv('Falldaten_CaritasbB.csv', delimiter=';')
+
+case_data['Datum_Leistung'] = pd.to_datetime(case_data['Datum_Leistung'], errors='coerce')
+case_data['Datum_Registrierung_Client'] = pd.to_datetime(case_data['Datum_Registrierung_Client'], errors='coerce')
+
+# Extract the Year
+case_data['Leistung_Year'] = case_data['Datum_Leistung'].dt.year
+case_data['Registrierung'] = case_data['Datum_Registrierung_Client'].dt.year
+```
+
+```{python}
+#Finanzbedarf subcategories
+
+case_data.columns
+
+# Filter data for 'Finanzbedarf' and for years 2022 and 2023
+finanz_subcat = case_data[
+    (case_data['Hauptart'] == '02 Finanzbedarf') &
+    (case_data['Leistung_Year'].isin([2022, 2023]))
+]
+
+# Ensure 'Materielle_G' is included
+print(finanz_subcat[['Leistung_Year', 'Hauptart', 'Materielle_G']].head())
+
+
+# Group by 'Year' and 'Materielle_G', then count the occurrences
+finanz_subcat_yearly_counts = finanz_subcat.groupby(['Leistung_Year', 'Materielle_G']).size().reset_index(name='Counts')
+
+
+#Create a Bar Graph
+graph_finanz_subcat = go.Figure()
+
+# Sort the years for consistent color coding
+years = sorted(finanz_subcat_yearly_counts['Leistung_Year'].unique())
+colors = ['blue', 'orange']  # Example colors for visual differentiation
+
+# Iterate over each year and add a bar trace for each
+for year, color in zip(years, colors):
+    filtered_data = finanz_subcat_yearly_counts[finanz_subcat_yearly_counts['Leistung_Year'] == year]
+    graph_finanz_subcat.add_trace(go.Bar(
+        x=filtered_data['Materielle_G'],
+        y=filtered_data['Counts'],
+        name=str(year),
+        marker_color=color
+    ))
+
+# Update the layout to group bars
+graph_finanz_subcat.update_layout(
+    barmode='group',
+    title='Change in Materielle_G Categories for 02 Finanzbedarf by Year',
+    xaxis_title="Materielle Goods Categories",
+    yaxis_title="Number of Entries",
+    legend_title="Year",
+    plot_bgcolor='white',
+    legend=dict(
+        yanchor="top",
+        y=0.99,
+        xanchor="right",
+        x=0.99
+    )
+)
+
+# Show the plot
+graph_finanz_subcat.show()
 ```
 
 
 Finanzbedarf pro Monat.
 ```{python}
+#Graph for Finanzbedarf by Month
 
+case_data.info()
+
+# Extract year and month from Datum_Leistung
+case_data['Leistung_Month'] = case_data['Datum_Leistung'].dt.month
+
+# Filter data for 'Finanzbedarf' and relevant years
+finanzbedarf_data = case_data[(case_data['Hauptart'] == '02 Finanzbedarf') & (case_data['Leistung_Year'].isin([2022, 2023]))]
+
+# Aggregate data by year and month
+monthly_counts = finanzbedarf_data.groupby(['Leistung_Year', 'Leistung_Month']).size().reset_index(name='Counts')
+
+
+# Create a line graph
+finanz_fig = px.line(monthly_counts,
+              x='Leistung_Month',
+              y='Counts',
+              color='Leistung_Year',
+              markers=True,
+              labels={'Month': 'Month of the Year', 'Counts': 'Number of Finanzbedarf Cases'},
+              title='Monthly Trend of Finanzbedarf Cases by Year')
+
+# Customize the x-axis to show month names instead of numbers
+finanz_fig.update_layout(
+    xaxis=dict(
+        tickmode='array',
+        tickvals=list(range(1, 13)),
+        ticktext=['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+    )
+)
+
+# Add custom annotation
+finanz_fig.add_annotation(
+    x=4,  # April
+    y=monthly_counts[(monthly_counts['Leistung_Year'] == 2022) & (monthly_counts['Leistung_Month'] == 4)]['Counts'].values[0],
+    text="Start of War in Ukraine",  # Annotation text
+    showarrow=True,
+    arrowhead=1,
+    ax=20,  # adjusts the arrow from point (x, y) by this amount along x and y axis
+    ay=-30  # negative moves the text up
+)
+
+
+# Show the plot
+finanz_fig.show()
 ```

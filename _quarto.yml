@@ -27,6 +27,7 @@ website:
         - clients.qmd
         - clients-2022.qmd
         - clients-2023.qmd
+        - clients-turnover.qmd
     - title: "Falldaten"
       style: "docked"
       background: light

@@ -1,14 +1,13 @@
 ---
-title: "Index mit Umsatz verglichen"
+title: "Umsatz"
 execute:
   echo: false
 jupyter: python3
 ---
 
+Index mit Umsatz verglichen.
 
 ```{python}
-
-
 import pandas as pd
 import matplotlib.pyplot as plt
 
@@ -90,8 +89,4 @@ plt.title('Index- und Früchte/Gemüse Umsatzdaten im Zeitverlauf')
 plt.grid(True)
 
 plt.show()
-
-
-
-
 ```

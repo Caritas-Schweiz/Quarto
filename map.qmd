@@ -1,9 +1,11 @@
 ---
-title: "Karte"
+title: "Standorte"
 execute:
   echo: false
 jupyter: python3
 ---
+
+Geografische Verteilung der Caritas-Standorte in der Schweiz.
 
 ```{python}
 import plotly.graph_objects as go
