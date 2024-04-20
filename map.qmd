@@ -1,8 +1,95 @@
 ---
-title: "Map"
+title: "Karte"
+format:
+  html:
+    code-fold: true
 jupyter: python3
 ---
 
 ```{python}
+import plotly.graph_objects as go
+import pandas as pd
+import numpy as np
 
+# Updated coordinates for the specified cities
+city_coords = {
+    "Bern": (46.9479, 7.4446),
+    "Biel": (47.1367, 7.2463),
+    "Thun": (46.7512, 7.6210),
+    "Basel": (47.5596, 7.5886),
+    "Fribourg": (46.8065, 7.1617),
+    "Geneva (Carouge)": (46.1802, 6.1399),
+    "Geneva (Luserna)": (46.1859, 6.1576),
+    "Chur": (46.8494, 9.5320),
+    "Baar": (47.1951, 8.5315),
+    "Lucerne": (47.0502, 8.3093),
+    "La Chaux-de-Fonds": (47.0994, 6.8296),
+    "Neuchâtel": (46.9917, 6.9310),
+    "Rapperswil": (47.2277, 8.8177),
+    "St. Gallen": (47.4223, 9.3722),
+    "Wil": (47.4639, 9.0454),
+    "Lausanne": (46.5197, 6.6323),
+    "Renens": (46.5384, 6.5806),
+    "Vevey": (46.4614, 6.8410),
+    "Yverdon": (46.7785, 6.6412),
+    "Winterthur": (47.4998, 8.7275),
+    "Zurich (Kreis 4)": (47.3749, 8.5197),
+    "Zurich (Oerlikon)": (47.4105, 8.5441)
+}
+
+# Create a DataFrame for these cities with random assigned numbers
+cities = list(city_coords.keys())
+latitudes = [city_coords[city][0] for city in cities]
+longitudes = [city_coords[city][1] for city in cities]
+assigned_numbers = np.random.randint(1, 27, size=len(cities))
+
+df_cities = pd.DataFrame({
+    "City": cities,
+    "Latitude": latitudes,
+    "Longitude": longitudes,
+    "Assigned_Number": assigned_numbers
+})
+
+# Create a scatter geo plot with Plotly
+fig = go.Figure()
+
+fig.add_trace(go.Scattergeo(
+    lon=df_cities['Longitude'],
+    lat=df_cities['Latitude'],
+    text=df_cities['Assigned_Number'].astype(str),
+    mode='markers+text',
+    marker=dict(size=8, color='blue', line=dict(width=1, color='darkblue')),
+    textposition="bottom center"
+))
+
+fig.update_layout(
+    title="Assigned Numbers to Swiss Cities in 2023",
+    geo=dict(
+        scope='europe',
+        showland=True,
+        landcolor="rgb(212, 212, 212)",
+        subunitcolor="rgb(255, 255, 255)",
+        countrycolor="rgb(255, 255, 255)",
+        showlakes=True,
+        lakecolor="rgb(255, 255, 255)",
+        showsubunits=True,
+        showcountries=True,
+        resolution=50,
+        projection=dict(
+            type='mercator'
+        ),
+        lonaxis=dict(
+            range=[5, 11]
+        ),
+        lataxis=dict(
+            range=[45, 48]
+        ),
+        center=dict(
+            lon=8.3,
+            lat=46.8
+        ),
+    )
+)
+
+fig.show()
 ```
