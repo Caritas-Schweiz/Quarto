@@ -5,6 +5,21 @@ execute:
 jupyter: python3
 ---
 
+Verteilung der Beratungstypen.
+
+```{python}
+import pandas as pd
+import plotly.express as px
+
+data = pd.read_csv("Falldaten_CaritasbB.csv", sep=';')  # Use semicolon or another character if you suspect a different delimiter
+
+# Pie chart for the distribution of event types
+event_types_data = data['Ereignis_EreignisartID'].value_counts().reset_index()
+event_types_data.columns = ['Event Type', 'Count']
+
+fig_event_types = px.pie(event_types_data, values='Count', names='Event Type', title='Distribution of type of contact ')
+fig_event_types.show()
+```
 
 Anzahl Fälle gruppiert nach Beratungsthema und Jahr.
 
