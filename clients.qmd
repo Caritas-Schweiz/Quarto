@@ -1,0 +1,76 @@
+---
+title: "Kundenübersicht"
+format:
+  html:
+    code-fold: true
+jupyter: python3
+---
+
+
+```{python}
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+# CSV-Datei einlesen
+markt = pd.read_csv("Caritas Markt.csv", sep=";")
+
+# Umwandlung der 'Kundenanzahl' in numerische Werte, Fehler werden ignoriert
+markt['Kunden'] = pd.to_numeric(markt['Kunden'], errors='coerce')
+
+# Gruppierung nach Region und Summierung der Kundenanzahl
+kunden_pro_region = markt.groupby('Region')['Kunden'].sum()
+
+# Diagrammerstellung
+plt.figure(figsize=(10, 6))
+kunden_pro_region.plot(kind='bar', color='skyblue')
+plt.title('Kundenanzahl pro Region')
+plt.xlabel('Region')
+plt.ylabel('Kundenanzahl')
+plt.xticks(rotation=45)
+plt.grid(axis='y', linestyle='--', alpha=0.7)
+plt.show()
+
+
+# Heat Map
+
+
+# CSV-Datei einlesen
+data = pd.read_csv("Caritas Markt.csv", sep=";")
+
+# Datumsformatierung und Filterung für ein bestimmtes Jahr, z.B. 2023
+data['Monat'] = pd.to_datetime(data['Monat'], errors='coerce')
+data = data[data['Monat'].dt.year == 2023]
+
+# Erstellung einer Pivot-Tabelle
+pivot_table = data.pivot_table(values='Kunden', index='Region', columns=data['Monat'].dt.month, fill_value=0)
+
+# Heatmap erstellen
+plt.figure(figsize=(12, 8))
+sns.heatmap(pivot_table, annot=True, cmap="YlGnBu", fmt="0.2f")  # Verwenden von '0.2f' für zwei Dezimalstellen
+plt.title('Heatmap der Kundenanzahl pro Region und Monat für 2023')
+plt.xlabel('Monat')
+plt.ylabel('Region')
+plt.show()
+
+# Pie Chart
+
+
+# CSV-Datei einlesen
+data = pd.read_csv("Caritas Markt.csv", sep=";")
+
+# Umwandlung der 'Kundenanzahl' in numerische Werte, Fehler werden ignoriert
+data['Kunden'] = pd.to_numeric(data['Kunden'], errors='coerce')
+
+# Gruppierung nach Region und Summierung der Kundenanzahl
+kunden_pro_region = data.groupby('Region')['Kunden'].sum()
+
+# Pie Chart erstellen
+plt.figure(figsize=(10, 7))
+plt.pie(kunden_pro_region, labels=kunden_pro_region.index, autopct='%1.1f%%', startangle=140)
+plt.title('Verteilung der Kunden pro Region')
+plt.axis('equal')  # Dies stellt sicher, dass das Pie Chart kreisförmig bleibt
+plt.show()
+
+
+```

@@ -11,6 +11,14 @@ website:
       - market.qmd
       - map.qmd
       - about.qmd
+      - text: "Kunden"
+        menu:
+          - href: clients.qmd
+            text: Kundenübersicht Allgemein
+          - href: clients_2022.qmd
+            text: Kunden 2022
+          - href: clients_2023.qmd
+            text: Kunden 2023
 
 format:
   html:
